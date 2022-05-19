@@ -31,6 +31,7 @@
 <meta property="og:image" content="https://mikrotik.com/img/mtv2/newlogo.svg">
 <meta property="og:image" content="http://868878.xyz/2022/05/19/PVE-install-ROS/Untitled.png">
 <meta property="og:image" content="http://868878.xyz/2022/05/19/PVE-install-ROS/Untitled1.png">
+<meta property="og:image" content="http://868878.xyz/2022/05/19/PVE-install-ROS/Untitled2.png">
 <meta property="og:image" content="http://868878.xyz/2022/05/19/PVE-install-ROS/Untitled3.png">
 <meta property="og:image" content="http://868878.xyz/2022/05/19/PVE-install-ROS/Untitled4.png">
 <meta property="og:image" content="http://868878.xyz/2022/05/19/PVE-install-ROS/Untitled5.png">
@@ -44,10 +45,10 @@
 <meta property="og:image" content="http://868878.xyz/2022/05/19/PVE-install-ROS/Untitled13.png">
 <meta property="og:image" content="http://868878.xyz/2022/05/19/PVE-install-ROS/Untitled14.png">
 <meta property="og:image" content="http://868878.xyz/2022/05/19/PVE-install-ROS/Untitled15.png">
-<meta property="og:image" content="http://868878.xyz/PVE%207%201%E5%AE%89%E8%A3%85ROS%E7%B3%BB%E7%BB%9F%202afcdff03d0444d0ad5f7994ebbcd1e2/Untitled%2016.png">
-<meta property="og:image" content="http://868878.xyz/PVE%207%201%E5%AE%89%E8%A3%85ROS%E7%B3%BB%E7%BB%9F%202afcdff03d0444d0ad5f7994ebbcd1e2/Untitled%2017.png">
+<meta property="og:image" content="http://868878.xyz/2022/05/19/PVE-install-ROS/ROS16.png">
+<meta property="og:image" content="http://868878.xyz/2022/05/19/PVE-install-ROS/Untitled17.png">
 <meta property="article:published_time" content="2022-05-18T16:20:36.000Z">
-<meta property="article:modified_time" content="2022-05-19T03:44:58.441Z">
+<meta property="article:modified_time" content="2022-05-19T05:18:00.248Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://mikrotik.com/img/mtv2/newlogo.svg">
@@ -210,7 +211,7 @@
       <span class="post-meta-item-text">Posted on</span>
       
 
-      <time title="Created: 2022-05-19 00:20:36 / Modified: 11:44:58" itemprop="dateCreated datePublished" datetime="2022-05-19T00:20:36+08:00">2022-05-19</time>
+      <time title="Created: 2022-05-19 00:20:36 / Modified: 13:18:00" itemprop="dateCreated datePublished" datetime="2022-05-19T00:20:36+08:00">2022-05-19</time>
     </span>
 
   
@@ -236,71 +237,71 @@
 <li><strong>安装、配置PVE虚拟机</strong></li>
 </ol>
 <p>首先将所有网口添加进虚拟机节点，点击 <strong>数据中心 - 虚拟机 - 系统 - 网络 - 创建 - Linux Bridge，</strong>将没有被添加到网桥的<strong>网络设备</strong>的名字复制并填入<strong>桥接端口</strong>，可以添加备注，方便后续管理</p>
-<img src="/2022/05/19/PVE-install-ROS/Untitled.png" class="" title="This is an image">
+<img src="/2022/05/19/PVE-install-ROS/Untitled.png" class="" title="Image loding failure">
 
 <p>添加完之后如下图所示，名称一般是一一对应的，另外可以将上面四个网络设备的开机启动打开</p>
-<img src="/2022/05/19/PVE-install-ROS/Untitled1.png" class="" title="Image loading failure">
+<img src="/2022/05/19/PVE-install-ROS/Untitled1.png" class="" title="Image loding failure">
 
 <ol>
 <li>下载RouterOS镜像</li>
 </ol>
-<p><a target="_blank" rel="noopener" href="https://mikrotik.com/download">MikroTik</a></p>
+<p><a target="_blank" rel="noopener" href="https://mikrotik.com/download"></a></p>
 <p>进入RouterOS官网后之后，在Software→Cloud Host Router→Raw disk image对应下载7.1.2稳定版镜像，如下图所示</p>
-
+<img src="/2022/05/19/PVE-install-ROS/Untitled2.png" class="" title="Image loding failure">
 
 <p>或者直接点击如下链接进行下载</p>
 <p><a target="_blank" rel="noopener" href="https://download.mikrotik.com/routeros/7.1.2/chr-7.1.2.img.zip"></a></p>
 <p>将下载好的镜像解压，并重命名为RouterOS.img，将镜像文件上传到服务器，点击 <strong>数据中心 - 节点 - local(节点名称) - ISO Images</strong><br> ，然后选择文件并上传镜像</p>
-<img src="/2022/05/19/PVE-install-ROS/Untitled3.png" class="" title="Image loading failure">
+<img src="/2022/05/19/PVE-install-ROS/Untitled3.png" class="" title="Image loding failure">
 
 <ol>
 <li>安装RouterOS</li>
 </ol>
 <p>在PVE中新建虚拟机，虚拟机名称自定</p>
-<img src="/2022/05/19/PVE-install-ROS/Untitled4.png" class="" title="Image loading failure">
+<img src="/2022/05/19/PVE-install-ROS/Untitled4.png" class="" title="Image loding failure">
 
 <p>在操作系统这一项，选择不使用任何介质</p>
-<img src="/2022/05/19/PVE-install-ROS/Untitled5.png" class="" title="Image loading failure">
+<img src="/2022/05/19/PVE-install-ROS/Untitled5.png" class="" title="Image loding failure">
 
 <p>CPU核心数跟内存大小可以按照需求给，内存大小我是给的2G，其余设置默认，之后点击完成创建虚拟机。</p>
 <p>创建完成以后，将虚拟机的默认硬盘分离并删除</p>
-<img src="/2022/05/19/PVE-install-ROS/Untitled6.png" class="" title="Image loading failure">
-
-<img src="/2022/05/19/PVE-install-ROS/Untitled7.png" class="" title="Image loading failure">
+<img src="/2022/05/19/PVE-install-ROS/Untitled6.png" class="" title="Image loding failure">
+<img src="/2022/05/19/PVE-install-ROS/Untitled7.png" class="" title="Image loding failure">
 
 <p>进入PVE的Shell界面</p>
-<img src="/2022/05/19/PVE-install-ROS/Untitled8.png" class="" title="Image loading failure">
+<img src="/2022/05/19/PVE-install-ROS/Untitled8.png" class="" title="Image loding failure">
 
 <p>输入如下命令</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">qm importdisk XXX /var/lib/vz/template/iso/RouterOS.img local-lvm</span><br></pre></td></tr></table></figure>
 
 <p>这里的XXX应该替换为你所创建的ROS虚拟的ID，例如，我创建的RouterOS的ID为111，故我要输入的命令为</p>
-<img src="/2022/05/19/PVE-install-ROS/Untitled9.png" class="" title="Image loading failure">
+<img src="/2022/05/19/PVE-install-ROS/Untitled9.png" class="" title="Image loding failure">
 
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">qm importdisk 111 /var/lib/vz/template/iso/RouterOS.img local-lvm</span><br></pre></td></tr></table></figure>
 
 <p>出现类似如下所示</p>
-<img src="/2022/05/19/PVE-install-ROS/Untitled10.png" class="" title="Image loading failure">
+<img src="/2022/05/19/PVE-install-ROS/Untitled10.png" class="" title="Image loding failure">
 
 <p>双击这个未使用的磁盘进行添加</p>
-<img src="/2022/05/19/PVE-install-ROS/Untitled11.png" class="" title="Image loading failure">
-<img src="/2022/05/19/PVE-install-ROS/Untitled12.png" class="" title="Image loading failure">
+<img src="/2022/05/19/PVE-install-ROS/Untitled11.png" class="" title="Image loding failure">
+<img src="/2022/05/19/PVE-install-ROS/Untitled12.png" class="" title="Image loding failure">
 
 <p>最后将硬盘大小扩大一些</p>
-<img src="/2022/05/19/PVE-install-ROS/Untitled13.png" class="" title="Image loading failure">
+<img src="/2022/05/19/PVE-install-ROS/Untitled13.png" class="" title="Image loding failure">
 
 <p>对虚拟机引导顺序进行调整</p>
-<img src="/2022/05/19/PVE-install-ROS/Untitled14.png" class="" title="Image loading failure">
+<img src="/2022/05/19/PVE-install-ROS/Untitled14.png" class="" title="Image loding failure">
 
 <p>将所添加的RouterOS硬盘拖拽到最上面并打上勾</p>
-<img src="/2022/05/19/PVE-install-ROS/Untitled15.png" class="" title="Image loading failure">
+<img src="/2022/05/19/PVE-install-ROS/Untitled15.png" class="" title="Image loding failure">
 
 <p>此时，ROS虚拟机的设置就已经完成了。具体网络设置部分，网上有比较多教程，设置也比较常规。我只说下防火墙设置。</p>
-<p><img src="/PVE%207%201%E5%AE%89%E8%A3%85ROS%E7%B3%BB%E7%BB%9F%202afcdff03d0444d0ad5f7994ebbcd1e2/Untitled%2016.png" alt="Untitled"></p>
+<img src="/2022/05/19/PVE-install-ROS/ROS16.png" class="" title="Image loding failure">
+
 <p>另外，ROS系统需要激活才能使用，不然会限速，可以到ROS官网注册一个账号</p>
 <p><a target="_blank" rel="noopener" href="https://mikrotik.com/client">MikroTik</a></p>
 <p>依照下图所示进行激活</p>
-<p><img src="/PVE%207%201%E5%AE%89%E8%A3%85ROS%E7%B3%BB%E7%BB%9F%202afcdff03d0444d0ad5f7994ebbcd1e2/Untitled%2017.png" alt="Untitled"></p>
+<img src="/2022/05/19/PVE-install-ROS/Untitled17.png" class="" title="Image loding failure">
 
     </div>
 
