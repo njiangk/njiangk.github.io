@@ -21,27 +21,35 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"868878.xyz","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+    <meta name="description" content="双AdguardHome+Passwall设置思路主要思路：AdguardHome 分两组，一组上游全是国内 DNS，一组上游全是 DoT 或 DoH 的国外 DNS，分别作为富强软件的内外上游。   国内DNS组的AdguardHome：     国际DNS组的AdguardHome： 9.9.9.11149.112.112.118.8.8.81.1.1.1     Passwall设置：">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://868878.xyz/2022/05/18/hello-world/index.html">
+<meta property="og:title" content="个人博客">
+<meta property="og:url" content="http://868878.xyz/2022/05/29/%E5%8F%8CAdguardHome+Passwall%E8%AE%BE%E7%BD%AE%E6%80%9D%E8%B7%AF%20cba3655d272b4ee9ae114d46ba184e02/index.html">
 <meta property="og:site_name" content="个人博客">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:description" content="双AdguardHome+Passwall设置思路主要思路：AdguardHome 分两组，一组上游全是国内 DNS，一组上游全是 DoT 或 DoH 的国外 DNS，分别作为富强软件的内外上游。   国内DNS组的AdguardHome：     国际DNS组的AdguardHome： 9.9.9.11149.112.112.118.8.8.81.1.1.1     Passwall设置：">
 <meta property="og:locale">
-<meta property="article:published_time" content="2022-05-18T15:25:26.479Z">
-<meta property="article:modified_time" content="2022-05-18T15:07:01.290Z">
+<meta property="og:image" content="http://868878.xyz/2022/05/29/%E5%8F%8CAdguardHome+Passwall%E8%AE%BE%E7%BD%AE%E6%80%9D%E8%B7%AF%20cba3655d272b4ee9ae114d46ba184e02/0.png">
+<meta property="og:image" content="http://868878.xyz/2022/05/29/%E5%8F%8CAdguardHome+Passwall%E8%AE%BE%E7%BD%AE%E6%80%9D%E8%B7%AF%20cba3655d272b4ee9ae114d46ba184e02/1.png">
+<meta property="og:image" content="http://868878.xyz/2022/05/29/%E5%8F%8CAdguardHome+Passwall%E8%AE%BE%E7%BD%AE%E6%80%9D%E8%B7%AF%20cba3655d272b4ee9ae114d46ba184e02/2.png">
+<meta property="og:image" content="http://868878.xyz/2022/05/29/%E5%8F%8CAdguardHome+Passwall%E8%AE%BE%E7%BD%AE%E6%80%9D%E8%B7%AF%20cba3655d272b4ee9ae114d46ba184e02/3.png">
+<meta property="og:image" content="http://868878.xyz/2022/05/29/%E5%8F%8CAdguardHome+Passwall%E8%AE%BE%E7%BD%AE%E6%80%9D%E8%B7%AF%20cba3655d272b4ee9ae114d46ba184e02/4.png">
+<meta property="og:image" content="http://868878.xyz/2022/05/29/%E5%8F%8CAdguardHome+Passwall%E8%AE%BE%E7%BD%AE%E6%80%9D%E8%B7%AF%20cba3655d272b4ee9ae114d46ba184e02/5.png">
+<meta property="og:image" content="http://868878.xyz/2022/05/29/%E5%8F%8CAdguardHome+Passwall%E8%AE%BE%E7%BD%AE%E6%80%9D%E8%B7%AF%20cba3655d272b4ee9ae114d46ba184e02/6.png">
+<meta property="article:published_time" content="2022-05-29T04:43:41.679Z">
+<meta property="article:modified_time" content="2022-05-29T04:52:46.489Z">
 <meta property="article:author" content="南江">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://868878.xyz/2022/05/29/%E5%8F%8CAdguardHome+Passwall%E8%AE%BE%E7%BD%AE%E6%80%9D%E8%B7%AF%20cba3655d272b4ee9ae114d46ba184e02/0.png">
 
 
-<link rel="canonical" href="http://868878.xyz/2022/05/18/hello-world/">
+<link rel="canonical" href="http://868878.xyz/2022/05/29/%E5%8F%8CAdguardHome+Passwall%E8%AE%BE%E7%BD%AE%E6%80%9D%E8%B7%AF%20cba3655d272b4ee9ae114d46ba184e02/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"cn","comments":true,"permalink":"http://868878.xyz/2022/05/18/hello-world/","path":"2022/05/18/hello-world/","title":"Hello World"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"cn","comments":true,"permalink":"http://868878.xyz/2022/05/29/%E5%8F%8CAdguardHome+Passwall%E8%AE%BE%E7%BD%AE%E6%80%9D%E8%B7%AF%20cba3655d272b4ee9ae114d46ba184e02/","path":"2022/05/29/双AdguardHome+Passwall设置思路 cba3655d272b4ee9ae114d46ba184e02/","title":""}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>Hello World | 个人博客</title>
+<title> | 个人博客</title>
   
 
 
@@ -109,7 +117,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-number">1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-number">1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-number">1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%8CAdguardHome-Passwall%E8%AE%BE%E7%BD%AE%E6%80%9D%E8%B7%AF"><span class="nav-number">1.</span> <span class="nav-text">双AdguardHome+Passwall设置思路</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -162,7 +170,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="cn">
-    <link itemprop="mainEntityOfPage" href="http://868878.xyz/2022/05/18/hello-world/">
+    <link itemprop="mainEntityOfPage" href="http://868878.xyz/2022/05/29/%E5%8F%8CAdguardHome+Passwall%E8%AE%BE%E7%BD%AE%E6%80%9D%E8%B7%AF%20cba3655d272b4ee9ae114d46ba184e02/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -175,12 +183,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="Hello World | 个人博客">
+      <meta itemprop="name" content=" | 个人博客">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Hello World
+          
         </h1>
 
         <div class="post-meta-container">
@@ -192,7 +200,7 @@
       <span class="post-meta-item-text">Posted on</span>
       
 
-      <time title="Created: 2022-05-18 23:25:26 / Modified: 23:07:01" itemprop="dateCreated datePublished" datetime="2022-05-18T23:25:26+08:00">2022-05-18</time>
+      <time title="Created: 2022-05-29 12:43:41 / Modified: 12:52:46" itemprop="dateCreated datePublished" datetime="2022-05-29T12:43:41+08:00">2022-05-29</time>
     </span>
 
   
@@ -205,19 +213,34 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+        <h1 id="双AdguardHome-Passwall设置思路"><a href="#双AdguardHome-Passwall设置思路" class="headerlink" title="双AdguardHome+Passwall设置思路"></a>双AdguardHome+Passwall设置思路</h1><p>主要思路：<strong>AdguardHome 分两组，一组上游全是国内 DNS，一组上游全是 DoT 或 DoH 的国外 DNS，分别作为富强软件的内外上游。</strong></p>
+<img src="/2022/05/29/%E5%8F%8CAdguardHome+Passwall%E8%AE%BE%E7%BD%AE%E6%80%9D%E8%B7%AF%20cba3655d272b4ee9ae114d46ba184e02/0.png" class="" title="Image loding failure">
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>国内DNS组的AdguardHome：</p>
+<img src="/2022/05/29/%E5%8F%8CAdguardHome+Passwall%E8%AE%BE%E7%BD%AE%E6%80%9D%E8%B7%AF%20cba3655d272b4ee9ae114d46ba184e02/1.png" class="" title="Image loding failure">
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<img src="/2022/05/29/%E5%8F%8CAdguardHome+Passwall%E8%AE%BE%E7%BD%AE%E6%80%9D%E8%B7%AF%20cba3655d272b4ee9ae114d46ba184e02/2.png" class="" title="Image loding failure">
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>国际DNS组的AdguardHome：</p>
+<p>9.9.9.11<br>149.112.112.11<br>8.8.8.8<br>1.1.1.1</p>
+<img src="/2022/05/29/%E5%8F%8CAdguardHome+Passwall%E8%AE%BE%E7%BD%AE%E6%80%9D%E8%B7%AF%20cba3655d272b4ee9ae114d46ba184e02/3.png" class="" title="Image loding failure">
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+<img src="/2022/05/29/%E5%8F%8CAdguardHome+Passwall%E8%AE%BE%E7%BD%AE%E6%80%9D%E8%B7%AF%20cba3655d272b4ee9ae114d46ba184e02/4.png" class="" title="Image loding failure">
+
+<p>Passwall设置：</p>
+<img src="/2022/05/29/%E5%8F%8CAdguardHome+Passwall%E8%AE%BE%E7%BD%AE%E6%80%9D%E8%B7%AF%20cba3655d272b4ee9ae114d46ba184e02/5.png" class="" title="Image loding failure">
+
+<p>DHCP&#x2F;DNS设置：</p>
+<img src="/2022/05/29/%E5%8F%8CAdguardHome+Passwall%E8%AE%BE%E7%BD%AE%E6%80%9D%E8%B7%AF%20cba3655d272b4ee9ae114d46ba184e02/6.png" class="" title="Image loding failure">
+
+<p>若采用双软路由时，Passwall的功夫网list模式出现无法正常联网的问题，可以采取以下措施试试：</p>
+<ul>
+<li>修改主路由的DHCP服务器设置项，在DNS服务器里把旁路由的LAN IP设置为首选DNS，旁路由里的设置不用改动，实测这样设置可以正常使用功夫网LIST</li>
+</ul>
+<hr>
+<ul>
+<li>或者客户端手动设置IP DNS服务器，把首选NDS改为旁路由的LAN IP，实测也可以解决问题</li>
+</ul>
 
     </div>
 
@@ -231,11 +254,11 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
+                <a href="/2022/05/19/PVE-install-ROS/" rel="prev" title="PVE-install-ROS">
+                  <i class="fa fa-chevron-left"></i> PVE-install-ROS
+                </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2022/05/19/PVE-install-ROS/" rel="next" title="PVE-install-ROS">
-                  PVE-install-ROS <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>

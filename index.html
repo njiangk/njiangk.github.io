@@ -117,7 +117,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-count">3</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -147,6 +147,103 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://868878.xyz/2022/05/29/%E5%8F%8CAdguardHome+Passwall%E8%AE%BE%E7%BD%AE%E6%80%9D%E8%B7%AF%20cba3655d272b4ee9ae114d46ba184e02/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="南江">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="个人博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 个人博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/05/29/%E5%8F%8CAdguardHome+Passwall%E8%AE%BE%E7%BD%AE%E6%80%9D%E8%B7%AF%20cba3655d272b4ee9ae114d46ba184e02/" class="post-title-link" itemprop="url">Untitled</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2022-05-29 12:43:41 / Modified: 12:52:46" itemprop="dateCreated datePublished" datetime="2022-05-29T12:43:41+08:00">2022-05-29</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="双AdguardHome-Passwall设置思路"><a href="#双AdguardHome-Passwall设置思路" class="headerlink" title="双AdguardHome+Passwall设置思路"></a>双AdguardHome+Passwall设置思路</h1><p>主要思路：<strong>AdguardHome 分两组，一组上游全是国内 DNS，一组上游全是 DoT 或 DoH 的国外 DNS，分别作为富强软件的内外上游。</strong></p>
+<img src="/2022/05/29/%E5%8F%8CAdguardHome+Passwall%E8%AE%BE%E7%BD%AE%E6%80%9D%E8%B7%AF%20cba3655d272b4ee9ae114d46ba184e02/0.png" class="" title="Image loding failure">
+
+<p>国内DNS组的AdguardHome：</p>
+<img src="/2022/05/29/%E5%8F%8CAdguardHome+Passwall%E8%AE%BE%E7%BD%AE%E6%80%9D%E8%B7%AF%20cba3655d272b4ee9ae114d46ba184e02/1.png" class="" title="Image loding failure">
+
+<img src="/2022/05/29/%E5%8F%8CAdguardHome+Passwall%E8%AE%BE%E7%BD%AE%E6%80%9D%E8%B7%AF%20cba3655d272b4ee9ae114d46ba184e02/2.png" class="" title="Image loding failure">
+
+<p>国际DNS组的AdguardHome：</p>
+<p>9.9.9.11<br>149.112.112.11<br>8.8.8.8<br>1.1.1.1</p>
+<img src="/2022/05/29/%E5%8F%8CAdguardHome+Passwall%E8%AE%BE%E7%BD%AE%E6%80%9D%E8%B7%AF%20cba3655d272b4ee9ae114d46ba184e02/3.png" class="" title="Image loding failure">
+
+<img src="/2022/05/29/%E5%8F%8CAdguardHome+Passwall%E8%AE%BE%E7%BD%AE%E6%80%9D%E8%B7%AF%20cba3655d272b4ee9ae114d46ba184e02/4.png" class="" title="Image loding failure">
+
+<p>Passwall设置：</p>
+<img src="/2022/05/29/%E5%8F%8CAdguardHome+Passwall%E8%AE%BE%E7%BD%AE%E6%80%9D%E8%B7%AF%20cba3655d272b4ee9ae114d46ba184e02/5.png" class="" title="Image loding failure">
+
+<p>DHCP&#x2F;DNS设置：</p>
+<img src="/2022/05/29/%E5%8F%8CAdguardHome+Passwall%E8%AE%BE%E7%BD%AE%E6%80%9D%E8%B7%AF%20cba3655d272b4ee9ae114d46ba184e02/6.png" class="" title="Image loding failure">
+
+<p>若采用双软路由时，Passwall的功夫网list模式出现无法正常联网的问题，可以采取以下措施试试：</p>
+<ul>
+<li>修改主路由的DHCP服务器设置项，在DNS服务器里把旁路由的LAN IP设置为首选DNS，旁路由里的设置不用改动，实测这样设置可以正常使用功夫网LIST</li>
+</ul>
+<hr>
+<ul>
+<li>或者客户端手动设置IP DNS服务器，把首选NDS改为旁路由的LAN IP，实测也可以解决问题</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
