@@ -21,12 +21,12 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"868878.xyz","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="双AdguardHome+Passwall设置思路主要思路：AdguardHome 分两组，一组上游全是国内 DNS，一组上游全是 DoT 或 DoH 的国外 DNS，分别作为富强软件的内外上游。   国内DNS组的AdguardHome：     国际DNS组的AdguardHome： 9.9.9.11149.112.112.118.8.8.81.1.1.1     Passwall设置：">
+    <meta name="description" content="主要思路：AdguardHome 分两组，一组上游全是国内 DNS，一组上游全是 DoT 或 DoH 的国外 DNS，分别作为富强软件的内外上游。   国内DNS组的AdguardHome：     国际DNS组的AdguardHome： 9.9.9.11149.112.112.118.8.8.81.1.1.1     Passwall设置：   DHCP&#x2F;DNS设置：   若采用双软路">
 <meta property="og:type" content="article">
 <meta property="og:title" content="双AdguardHome+Passwall设置思路">
 <meta property="og:url" content="http://868878.xyz/2022/05/29/%E5%8F%8CAdguardHome+Passwall%E8%AE%BE%E7%BD%AE%E6%80%9D%E8%B7%AF%20cba3655d272b4ee9ae114d46ba184e02/index.html">
 <meta property="og:site_name" content="Njiangk&#39;s Blog">
-<meta property="og:description" content="双AdguardHome+Passwall设置思路主要思路：AdguardHome 分两组，一组上游全是国内 DNS，一组上游全是 DoT 或 DoH 的国外 DNS，分别作为富强软件的内外上游。   国内DNS组的AdguardHome：     国际DNS组的AdguardHome： 9.9.9.11149.112.112.118.8.8.81.1.1.1     Passwall设置：">
+<meta property="og:description" content="主要思路：AdguardHome 分两组，一组上游全是国内 DNS，一组上游全是 DoT 或 DoH 的国外 DNS，分别作为富强软件的内外上游。   国内DNS组的AdguardHome：     国际DNS组的AdguardHome： 9.9.9.11149.112.112.118.8.8.81.1.1.1     Passwall设置：   DHCP&#x2F;DNS设置：   若采用双软路">
 <meta property="og:locale">
 <meta property="og:image" content="http://868878.xyz/2022/05/29/%E5%8F%8CAdguardHome+Passwall%E8%AE%BE%E7%BD%AE%E6%80%9D%E8%B7%AF%20cba3655d272b4ee9ae114d46ba184e02/0.png">
 <meta property="og:image" content="http://868878.xyz/2022/05/29/%E5%8F%8CAdguardHome+Passwall%E8%AE%BE%E7%BD%AE%E6%80%9D%E8%B7%AF%20cba3655d272b4ee9ae114d46ba184e02/1.png">
@@ -36,7 +36,7 @@
 <meta property="og:image" content="http://868878.xyz/2022/05/29/%E5%8F%8CAdguardHome+Passwall%E8%AE%BE%E7%BD%AE%E6%80%9D%E8%B7%AF%20cba3655d272b4ee9ae114d46ba184e02/5.png">
 <meta property="og:image" content="http://868878.xyz/2022/05/29/%E5%8F%8CAdguardHome+Passwall%E8%AE%BE%E7%BD%AE%E6%80%9D%E8%B7%AF%20cba3655d272b4ee9ae114d46ba184e02/6.png">
 <meta property="article:published_time" content="2022-05-29T04:43:41.679Z">
-<meta property="article:modified_time" content="2022-05-29T04:56:20.489Z">
+<meta property="article:modified_time" content="2022-07-05T06:12:58.755Z">
 <meta property="article:author" content="南江">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://868878.xyz/2022/05/29/%E5%8F%8CAdguardHome+Passwall%E8%AE%BE%E7%BD%AE%E6%80%9D%E8%B7%AF%20cba3655d272b4ee9ae114d46ba184e02/0.png">
@@ -104,7 +104,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+    <div class="sidebar-inner sidebar-overview-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           Table of Contents
@@ -117,7 +117,6 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%8CAdguardHome-Passwall%E8%AE%BE%E7%BD%AE%E6%80%9D%E8%B7%AF"><span class="nav-number">1.</span> <span class="nav-text">双AdguardHome+Passwall设置思路</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -130,7 +129,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-count">4</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -198,9 +197,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">Posted on</span>
-      
 
-      <time title="Created: 2022-05-29 12:43:41 / Modified: 12:56:20" itemprop="dateCreated datePublished" datetime="2022-05-29T12:43:41+08:00">2022-05-29</time>
+      <time title="Created: 2022-05-29 12:43:41" itemprop="dateCreated datePublished" datetime="2022-05-29T12:43:41+08:00">2022-05-29</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2022-07-05 14:12:58" itemprop="dateModified" datetime="2022-07-05T14:12:58+08:00">2022-07-05</time>
     </span>
 
   
@@ -213,7 +218,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h2 id="双AdguardHome-Passwall设置思路"><a href="#双AdguardHome-Passwall设置思路" class="headerlink" title="双AdguardHome+Passwall设置思路"></a>双AdguardHome+Passwall设置思路</h2><p>主要思路：<strong>AdguardHome 分两组，一组上游全是国内 DNS，一组上游全是 DoT 或 DoH 的国外 DNS，分别作为富强软件的内外上游。</strong></p>
+        <p>主要思路：<strong>AdguardHome 分两组，一组上游全是国内 DNS，一组上游全是 DoT 或 DoH 的国外 DNS，分别作为富强软件的内外上游。</strong></p>
 <img src="/2022/05/29/%E5%8F%8CAdguardHome+Passwall%E8%AE%BE%E7%BD%AE%E6%80%9D%E8%B7%AF%20cba3655d272b4ee9ae114d46ba184e02/0.png" class="" title="Image loding failure">
 
 <p>国内DNS组的AdguardHome：</p>
@@ -259,6 +264,9 @@
                 </a>
             </div>
             <div class="post-nav-item">
+                <a href="/2022/07/05/PVE%207%201%E4%B8%AD%E4%BD%BF%E7%94%A8LXC%E8%BF%90%E8%A1%8Copenwrt%E4%BD%9C%E4%B8%BA%E6%97%81%E8%B7%AF%E7%BD%91%E5%85%B3%E3%80%90%E6%97%A5%E5%BF%97%E3%80%91%207bd649eff7e04fa0987860748ff5b8e5/" rel="next" title="PVE 7.1中使用LXC运行openwrt作为旁路网关【日志】">
+                  PVE 7.1中使用LXC运行openwrt作为旁路网关【日志】 <i class="fa fa-chevron-right"></i>
+                </a>
             </div>
           </div>
     </footer>

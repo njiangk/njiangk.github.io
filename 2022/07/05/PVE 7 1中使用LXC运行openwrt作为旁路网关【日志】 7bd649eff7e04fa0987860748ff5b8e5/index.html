@@ -21,25 +21,31 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"868878.xyz","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="记录学习历程，不断进步">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Njiangk&#39;s Blog">
-<meta property="og:url" content="http://868878.xyz/index.html">
+    <meta name="description" content="在PVE中的LXC容器而非虚拟机中运行openwrt可以有效降低系统占用。我的方法不一定正确，分享出来供大家参考。 我目前试了两种方案，一种是在直接在lxc中跑openwrt；另一种是先在lxc中跑一个linux，在linux中安装docker，docker中再跑openwrt作为旁路网关。该方法仅供参考，不一定具有实际意义。优点主要有两个，LXC的系统占用比较低；由于docker上的openwr">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PVE 7.1中使用LXC运行openwrt作为旁路网关【日志】">
+<meta property="og:url" content="http://868878.xyz/2022/07/05/PVE%207%201%E4%B8%AD%E4%BD%BF%E7%94%A8LXC%E8%BF%90%E8%A1%8Copenwrt%E4%BD%9C%E4%B8%BA%E6%97%81%E8%B7%AF%E7%BD%91%E5%85%B3%E3%80%90%E6%97%A5%E5%BF%97%E3%80%91%207bd649eff7e04fa0987860748ff5b8e5/index.html">
 <meta property="og:site_name" content="Njiangk&#39;s Blog">
-<meta property="og:description" content="记录学习历程，不断进步">
+<meta property="og:description" content="在PVE中的LXC容器而非虚拟机中运行openwrt可以有效降低系统占用。我的方法不一定正确，分享出来供大家参考。 我目前试了两种方案，一种是在直接在lxc中跑openwrt；另一种是先在lxc中跑一个linux，在linux中安装docker，docker中再跑openwrt作为旁路网关。该方法仅供参考，不一定具有实际意义。优点主要有两个，LXC的系统占用比较低；由于docker上的openwr">
 <meta property="og:locale">
+<meta property="og:image" content="http://868878.xyz/2022/07/05/PVE%207%201%E4%B8%AD%E4%BD%BF%E7%94%A8LXC%E8%BF%90%E8%A1%8Copenwrt%E4%BD%9C%E4%B8%BA%E6%97%81%E8%B7%AF%E7%BD%91%E5%85%B3%E3%80%90%E6%97%A5%E5%BF%97%E3%80%91%207bd649eff7e04fa0987860748ff5b8e5/Untitled.png">
+<meta property="og:image" content="http://868878.xyz/2022/07/05/PVE%207%201%E4%B8%AD%E4%BD%BF%E7%94%A8LXC%E8%BF%90%E8%A1%8Copenwrt%E4%BD%9C%E4%B8%BA%E6%97%81%E8%B7%AF%E7%BD%91%E5%85%B3%E3%80%90%E6%97%A5%E5%BF%97%E3%80%91%207bd649eff7e04fa0987860748ff5b8e5/Untitled1.png">
+<meta property="og:image" content="http://868878.xyz/2022/07/05/PVE%207%201%E4%B8%AD%E4%BD%BF%E7%94%A8LXC%E8%BF%90%E8%A1%8Copenwrt%E4%BD%9C%E4%B8%BA%E6%97%81%E8%B7%AF%E7%BD%91%E5%85%B3%E3%80%90%E6%97%A5%E5%BF%97%E3%80%91%207bd649eff7e04fa0987860748ff5b8e5/Untitled2.png">
+<meta property="article:published_time" content="2022-07-04T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-07-05T06:18:58.448Z">
 <meta property="article:author" content="南江">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://868878.xyz/2022/07/05/PVE%207%201%E4%B8%AD%E4%BD%BF%E7%94%A8LXC%E8%BF%90%E8%A1%8Copenwrt%E4%BD%9C%E4%B8%BA%E6%97%81%E8%B7%AF%E7%BD%91%E5%85%B3%E3%80%90%E6%97%A5%E5%BF%97%E3%80%91%207bd649eff7e04fa0987860748ff5b8e5/Untitled.png">
 
 
-<link rel="canonical" href="http://868878.xyz/">
+<link rel="canonical" href="http://868878.xyz/2022/07/05/PVE%207%201%E4%B8%AD%E4%BD%BF%E7%94%A8LXC%E8%BF%90%E8%A1%8Copenwrt%E4%BD%9C%E4%B8%BA%E6%97%81%E8%B7%AF%E7%BD%91%E5%85%B3%E3%80%90%E6%97%A5%E5%BF%97%E3%80%91%207bd649eff7e04fa0987860748ff5b8e5/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":true,"isPost":false,"lang":"cn","comments":"","permalink":"","path":"index.html","title":""}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"cn","comments":true,"permalink":"http://868878.xyz/2022/07/05/PVE%207%201%E4%B8%AD%E4%BD%BF%E7%94%A8LXC%E8%BF%90%E8%A1%8Copenwrt%E4%BD%9C%E4%B8%BA%E6%97%81%E8%B7%AF%E7%BD%91%E5%85%B3%E3%80%90%E6%97%A5%E5%BF%97%E3%80%91%207bd649eff7e04fa0987860748ff5b8e5/","path":"2022/07/05/PVE 7 1中使用LXC运行openwrt作为旁路网关【日志】 7bd649eff7e04fa0987860748ff5b8e5/","title":"PVE 7.1中使用LXC运行openwrt作为旁路网关【日志】"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>Njiangk's Blog</title>
+<title>PVE 7.1中使用LXC运行openwrt作为旁路网关【日志】 | Njiangk's Blog</title>
   
 
 
@@ -66,7 +72,7 @@
 
     <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
-      <h1 class="site-title">Njiangk's Blog</h1>
+      <p class="site-title">Njiangk's Blog</p>
       <i class="logo-line"></i>
     </a>
   </div>
@@ -148,16 +154,17 @@
 </noscript>
 
 
-    <div class="main-inner index posts-expand">
+    <div class="main-inner post posts-expand">
 
-    
+
+  
 
 
 <div class="post-block">
   
   
 
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="cn">
     <link itemprop="mainEntityOfPage" href="http://868878.xyz/2022/07/05/PVE%207%201%E4%B8%AD%E4%BD%BF%E7%94%A8LXC%E8%BF%90%E8%A1%8Copenwrt%E4%BD%9C%E4%B8%BA%E6%97%81%E8%B7%AF%E7%BD%91%E5%85%B3%E3%80%90%E6%97%A5%E5%BF%97%E3%80%91%207bd649eff7e04fa0987860748ff5b8e5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -171,13 +178,13 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Njiangk's Blog">
+      <meta itemprop="name" content="PVE 7.1中使用LXC运行openwrt作为旁路网关【日志】 | Njiangk's Blog">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/07/05/PVE%207%201%E4%B8%AD%E4%BD%BF%E7%94%A8LXC%E8%BF%90%E8%A1%8Copenwrt%E4%BD%9C%E4%B8%BA%E6%97%81%E8%B7%AF%E7%BD%91%E5%85%B3%E3%80%90%E6%97%A5%E5%BF%97%E3%80%91%207bd649eff7e04fa0987860748ff5b8e5/" class="post-title-link" itemprop="url">PVE 7.1中使用LXC运行openwrt作为旁路网关【日志】</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          PVE 7.1中使用LXC运行openwrt作为旁路网关【日志】
+        </h1>
 
         <div class="post-meta-container">
           <div class="post-meta">
@@ -201,7 +208,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>在PVE中的LXC容器而非虚拟机中运行openwrt可以有效降低系统占用。我的方法不一定正确，分享出来供大家参考。</p>
+        <p>在PVE中的LXC容器而非虚拟机中运行openwrt可以有效降低系统占用。我的方法不一定正确，分享出来供大家参考。</p>
 <p>我目前试了两种方案，一种是在直接在lxc中跑openwrt；另一种是先在lxc中跑一个linux，在linux中安装docker，docker中再跑openwrt作为旁路网关。该方法仅供参考，不一定具有实际意义。优点主要有两个，LXC的系统占用比较低；由于docker上的openwrt可以方便的更新docker镜像，从而减少了更新openwrt的繁琐步骤。</p>
 <p>以下方案均基于<code>**PVE虚拟机：7.1-10**</code></p>
 <hr>
@@ -318,7 +325,6 @@
 <hr>
 <p>以上内容仅供参考，具体以你的网络环境为准。如果有不对的地方也可以在评论区指出，供大家参考</p>
 
-      
     </div>
 
     
@@ -326,343 +332,22 @@
     
 
     <footer class="post-footer">
-        <div class="post-eof"></div>
-      
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/05/29/%E5%8F%8CAdguardHome+Passwall%E8%AE%BE%E7%BD%AE%E6%80%9D%E8%B7%AF%20cba3655d272b4ee9ae114d46ba184e02/" rel="prev" title="双AdguardHome+Passwall设置思路">
+                  <i class="fa fa-chevron-left"></i> 双AdguardHome+Passwall设置思路
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
     </footer>
   </article>
 </div>
 
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://868878.xyz/2022/05/29/%E5%8F%8CAdguardHome+Passwall%E8%AE%BE%E7%BD%AE%E6%80%9D%E8%B7%AF%20cba3655d272b4ee9ae114d46ba184e02/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="南江">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Njiangk's Blog">
-      <meta itemprop="description" content="记录学习历程，不断进步">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Njiangk's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/05/29/%E5%8F%8CAdguardHome+Passwall%E8%AE%BE%E7%BD%AE%E6%80%9D%E8%B7%AF%20cba3655d272b4ee9ae114d46ba184e02/" class="post-title-link" itemprop="url">双AdguardHome+Passwall设置思路</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2022-05-29 12:43:41" itemprop="dateCreated datePublished" datetime="2022-05-29T12:43:41+08:00">2022-05-29</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2022-07-05 14:12:58" itemprop="dateModified" datetime="2022-07-05T14:12:58+08:00">2022-07-05</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>主要思路：<strong>AdguardHome 分两组，一组上游全是国内 DNS，一组上游全是 DoT 或 DoH 的国外 DNS，分别作为富强软件的内外上游。</strong></p>
-<img src="/2022/05/29/%E5%8F%8CAdguardHome+Passwall%E8%AE%BE%E7%BD%AE%E6%80%9D%E8%B7%AF%20cba3655d272b4ee9ae114d46ba184e02/0.png" class="" title="Image loding failure">
-
-<p>国内DNS组的AdguardHome：</p>
-<img src="/2022/05/29/%E5%8F%8CAdguardHome+Passwall%E8%AE%BE%E7%BD%AE%E6%80%9D%E8%B7%AF%20cba3655d272b4ee9ae114d46ba184e02/1.png" class="" title="Image loding failure">
-
-<img src="/2022/05/29/%E5%8F%8CAdguardHome+Passwall%E8%AE%BE%E7%BD%AE%E6%80%9D%E8%B7%AF%20cba3655d272b4ee9ae114d46ba184e02/2.png" class="" title="Image loding failure">
-
-<p>国际DNS组的AdguardHome：</p>
-<p>9.9.9.11<br>149.112.112.11<br>8.8.8.8<br>1.1.1.1</p>
-<img src="/2022/05/29/%E5%8F%8CAdguardHome+Passwall%E8%AE%BE%E7%BD%AE%E6%80%9D%E8%B7%AF%20cba3655d272b4ee9ae114d46ba184e02/3.png" class="" title="Image loding failure">
-
-<img src="/2022/05/29/%E5%8F%8CAdguardHome+Passwall%E8%AE%BE%E7%BD%AE%E6%80%9D%E8%B7%AF%20cba3655d272b4ee9ae114d46ba184e02/4.png" class="" title="Image loding failure">
-
-<p>Passwall设置：</p>
-<img src="/2022/05/29/%E5%8F%8CAdguardHome+Passwall%E8%AE%BE%E7%BD%AE%E6%80%9D%E8%B7%AF%20cba3655d272b4ee9ae114d46ba184e02/5.png" class="" title="Image loding failure">
-
-<p>DHCP&#x2F;DNS设置：</p>
-<img src="/2022/05/29/%E5%8F%8CAdguardHome+Passwall%E8%AE%BE%E7%BD%AE%E6%80%9D%E8%B7%AF%20cba3655d272b4ee9ae114d46ba184e02/6.png" class="" title="Image loding failure">
-
-<p>若采用双软路由时，Passwall的功夫网list模式出现无法正常联网的问题，可以采取以下措施试试：</p>
-<ul>
-<li>修改主路由的DHCP服务器设置项，在DNS服务器里把旁路由的LAN IP设置为首选DNS，旁路由里的设置不用改动，实测这样设置可以正常使用功夫网LIST</li>
-</ul>
-<hr>
-<ul>
-<li>或者客户端手动设置IP DNS服务器，把首选NDS改为旁路由的LAN IP，实测也可以解决问题</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://868878.xyz/2022/05/19/PVE-install-ROS/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="南江">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Njiangk's Blog">
-      <meta itemprop="description" content="记录学习历程，不断进步">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Njiangk's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/05/19/PVE-install-ROS/" class="post-title-link" itemprop="url">PVE-install-ROS</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-      
-
-      <time title="Created: 2022-05-19 00:20:36 / Modified: 13:18:54" itemprop="dateCreated datePublished" datetime="2022-05-19T00:20:36+08:00">2022-05-19</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p><img src="https://mikrotik.com/img/mtv2/newlogo.svg" alt="mikrotik logo"></p>
-<p>本文将是基于 PVE 7.1环境进行安装的ROS系统，仅记录安装ROS的整个配置的流程，安装PVE虚拟机的流程这里就不赘述了，网上资料比较都多。</p>
-<p>使用到的固件镜像：</p>
-<p><code>PVE虚拟机：7.1-10</code></p>
-<p><code>ROS软路由：7.1.2</code></p>
-<ol>
-<li><strong>下载PVE安装镜像</strong></li>
-</ol>
-<p><a target="_blank" rel="noopener" href="https://www.proxmox.com/en/downloads/item/proxmox-ve-7-1-iso-installer">Proxmox VE 7.1 ISO Installer</a></p>
-<ol>
-<li><strong>安装、配置PVE虚拟机</strong></li>
-</ol>
-<p>首先将所有网口添加进虚拟机节点，点击 <strong>数据中心 - 虚拟机 - 系统 - 网络 - 创建 - Linux Bridge，</strong>将没有被添加到网桥的<strong>网络设备</strong>的名字复制并填入<strong>桥接端口</strong>，可以添加备注，方便后续管理</p>
-<img src="/2022/05/19/PVE-install-ROS/Untitled.png" class="" title="Image loding failure">
-
-<p>添加完之后如下图所示，名称一般是一一对应的，另外可以将上面四个网络设备的开机启动打开</p>
-<img src="/2022/05/19/PVE-install-ROS/Untitled1.png" class="" title="Image loding failure">
-
-<ol>
-<li>下载RouterOS镜像</li>
-</ol>
-<p><a target="_blank" rel="noopener" href="https://mikrotik.com/download"></a></p>
-<p>进入RouterOS官网后之后，在Software→Cloud Host Router→Raw disk image对应下载7.1.2稳定版镜像，如下图所示</p>
-<img src="/2022/05/19/PVE-install-ROS/Untitled2.png" class="" title="Image loding failure">
-
-<p>或者直接点击如下链接进行下载</p>
-<p><a target="_blank" rel="noopener" href="https://download.mikrotik.com/routeros/7.1.2/chr-7.1.2.img.zip"></a></p>
-<p>将下载好的镜像解压，并重命名为RouterOS.img，将镜像文件上传到服务器，点击 <strong>数据中心 - 节点 - local(节点名称) - ISO Images</strong><br> ，然后选择文件并上传镜像</p>
-<img src="/2022/05/19/PVE-install-ROS/Untitled3.png" class="" title="Image loding failure">
-
-<ol>
-<li>安装RouterOS</li>
-</ol>
-<p>在PVE中新建虚拟机，虚拟机名称自定</p>
-<img src="/2022/05/19/PVE-install-ROS/Untitled4.png" class="" title="Image loding failure">
-
-<p>在操作系统这一项，选择不使用任何介质</p>
-<img src="/2022/05/19/PVE-install-ROS/Untitled5.png" class="" title="Image loding failure">
-
-<p>CPU核心数跟内存大小可以按照需求给，内存大小我是给的2G，其余设置默认，之后点击完成创建虚拟机。</p>
-<p>创建完成以后，将虚拟机的默认硬盘分离并删除</p>
-<img src="/2022/05/19/PVE-install-ROS/Untitled6.png" class="" title="Image loding failure">
-<img src="/2022/05/19/PVE-install-ROS/Untitled7.png" class="" title="Image loding failure">
-
-<p>进入PVE的Shell界面</p>
-<img src="/2022/05/19/PVE-install-ROS/Untitled8.png" class="" title="Image loding failure">
-
-<p>输入如下命令</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">qm importdisk XXX /var/lib/vz/template/iso/RouterOS.img local-lvm</span><br></pre></td></tr></table></figure>
-
-<p>这里的XXX应该替换为你所创建的ROS虚拟的ID，例如，我创建的RouterOS的ID为111，故我要输入的命令为</p>
-<img src="/2022/05/19/PVE-install-ROS/Untitled9.png" class="" title="Image loding failure">
-
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">qm importdisk 111 /var/lib/vz/template/iso/RouterOS.img local-lvm</span><br></pre></td></tr></table></figure>
-
-<p>出现类似如下所示</p>
-<img src="/2022/05/19/PVE-install-ROS/Untitled10.png" class="" title="Image loding failure">
-
-<p>双击这个未使用的磁盘进行添加</p>
-<img src="/2022/05/19/PVE-install-ROS/Untitled11.png" class="" title="Image loding failure">
-<img src="/2022/05/19/PVE-install-ROS/Untitled12.png" class="" title="Image loding failure">
-
-<p>最后将硬盘大小扩大一些</p>
-<img src="/2022/05/19/PVE-install-ROS/Untitled13.png" class="" title="Image loding failure">
-
-<p>对虚拟机引导顺序进行调整</p>
-<img src="/2022/05/19/PVE-install-ROS/Untitled14.png" class="" title="Image loding failure">
-
-<p>将所添加的RouterOS硬盘拖拽到最上面并打上勾</p>
-<img src="/2022/05/19/PVE-install-ROS/Untitled15.png" class="" title="Image loding failure">
-
-<p>此时，ROS虚拟机的设置就已经完成了。具体网络设置部分，网上有比较多教程，设置也比较常规。我只说下防火墙设置。</p>
-<img src="/2022/05/19/PVE-install-ROS/ROS16.png" class="" title="Image loding failure">
-
-<p>另外，ROS系统需要激活才能使用，不然会限速，可以到ROS官网注册一个账号</p>
-<p><a target="_blank" rel="noopener" href="https://mikrotik.com/client">MikroTik</a></p>
-<p>依照下图所示进行激活</p>
-<img src="/2022/05/19/PVE-install-ROS/ROS17.png" class="" title="Image loding failure">
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://868878.xyz/2022/05/18/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="南江">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Njiangk's Blog">
-      <meta itemprop="description" content="记录学习历程，不断进步">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Njiangk's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/05/18/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-      
-
-      <time title="Created: 2022-05-18 23:25:26 / Modified: 23:07:01" itemprop="dateCreated datePublished" datetime="2022-05-18T23:25:26+08:00">2022-05-18</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
 
 
 
